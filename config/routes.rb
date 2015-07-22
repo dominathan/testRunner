@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :users, except: [:show]
 
   get 'users/:page' => "users#index"
+
+  get 'ajaxified_users/:ajax_page',to: "users#ajaxified", as: "ajaxified"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

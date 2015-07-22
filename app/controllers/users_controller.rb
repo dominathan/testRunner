@@ -7,6 +7,13 @@ class UsersController < ApplicationController
     @users = User.all[((params[:page].to_i - 1)*20)..params[:page].to_i*20]
   end
 
+  def ajaxified
+    @users = User.all[((params[:ajax_page].to_i - 1) * 20)..params[:ajax_page].to_i * 20]
+    respond_to do |format|
+      format.json { render json: @users }
+    end
+  end
+
   # GET /users/1
   # GET /users/1.json
 
