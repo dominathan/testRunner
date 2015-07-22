@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Users</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Number</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Occupation</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% start_time = Time.now %>
+    <% @users.each_with_index do |user,idx| %>
+      <tr>
+        <td><%= 20*params[:page].to_i - 20 + idx %></td>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.occupation %></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+    <% end_time = Time.now %>
+    <h1><%= end_time - start_time %> </h1>
+
+  </tbody>
+</table>
+
+<br>
+<ul class='my-list'>
+<%= form_tag users_path, method: 'GET' do %>
+  <% mypage = params[:page].to_i || 1 %>
+  <li>
+    <%= content_tag :a, :href => "/users/#{mypage - 1}" do %>
+      <%= mypage - 1%>
+    <% end %>
+  </li>
+  <li>
+    <%= content_tag :a, :href => "/users/#{mypage}" do %>
+      <%= mypage %>
+    <% end %>
+  </li>
+  <li>
+    <%= content_tag :a, :href => "/users/#{mypage + 1}" do %>
+      <%= mypage + 1 %>
+    <% end %>
+  </li>
+<% end %>
+</ul>
+
+<%= link_to 'New User', new_user_path %>
